@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var Solicitud = mongoose.model('Solicitud', {
+var SolicitudSchema = new Schema({
   jugador: {
     type: String,
     required: true,
@@ -19,4 +20,4 @@ var Solicitud = mongoose.model('Solicitud', {
   }
 });
 
-module.exports = {Solicitud};
+mongoose.model('solicitudes', SolicitudSchema, 'solicitudes');

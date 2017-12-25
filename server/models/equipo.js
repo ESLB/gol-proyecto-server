@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var Equipo = mongoose.model('Equipo', {
+var EquipoSchema = new Schema({
   nombre:{
     type: String,
     required: true,
@@ -36,7 +37,7 @@ var Equipo = mongoose.model('Equipo', {
     type: String,
     default: "",
     trim: true
-  }  
+  }
 });
 
-module.exports = {Equipo};
+mongoose.model('equipos', EquipoSchema, 'equipos');

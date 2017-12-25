@@ -12,7 +12,9 @@ var {Reto} = require('./models/reto');
 //CARGAR RUTAS
 const todos = require('./routes/todos');
 const jugadores = require('./routes/jugadores');
-
+const equipos = require('./routes/equipos');
+const retos = require('./routes/retos');
+const solicitudes = require('./routes/solicitudes');
 
 var app = express();
 app.use(bodyParser.json());
@@ -20,6 +22,10 @@ app.use(bodyParser.json());
 //RUTAS CONFIGURAR
 app.use('/todos', todos);
 app.use('/jugadores', jugadores);
+app.use('/equipos', equipos);
+app.use('/retos', retos);
+app.use('/solicitudes', solicitudes);
+
 
 //SERVIDOR 
 const port = process.env.PORT || 3000;

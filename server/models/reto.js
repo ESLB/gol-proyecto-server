@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var Reto = mongoose.model('Reto', {
+var RetoSchema = new Schema({
   equipoRetador: {
     type: String,
     required: true,
@@ -25,4 +26,4 @@ var Reto = mongoose.model('Reto', {
   }
 });
 
-module.exports = {Reto};
+mongoose.model('retos', RetoSchema, 'retos');
