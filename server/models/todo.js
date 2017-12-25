@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-
-var Todo = mongoose.model('Todo', {
+var TodoSchema = new Schema({
   text: {
     type: String,
     required: true,
@@ -18,4 +18,4 @@ var Todo = mongoose.model('Todo', {
   }
 });
 
-module.exports = {Todo};
+mongoose.model('todos', TodoSchema, 'todos');
