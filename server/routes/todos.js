@@ -24,7 +24,6 @@ router.get('/:id', (req, res) => {
     if (!todo) {
       return res.status(404).send();
     }
-
     res.send({todo});
   }).catch((e) => {
     res.status(400).send();
@@ -86,6 +85,5 @@ router.delete('/:id', (req, res) => {
     res.status(400).send();
   });
 });
-
 
 module.exports = router;

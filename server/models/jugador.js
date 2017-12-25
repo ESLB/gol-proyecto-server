@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var Jugador = mongoose.model('Jugador', {
+var JugadorSchema = new Schema({
   nombre:{
     type: String,
     required: true,
@@ -38,28 +39,24 @@ var Jugador = mongoose.model('Jugador', {
   },
   perfilImagen:{
     type: String,
-    minlength: 1,
     trim: true,
-	default: ""
+	default: "https://icon-icons.com/icons2/924/PNG/512/Football_2-34_icon-icons.com_72069.png"
   },
   teams:{
     type: String,
     default: "",
-    minlength: 1,
     trim: true
   },
   retos:{
     type: String,
     default: "",
-    minlength: 1,
     trim: true
   },
   solicitudes:{
     type: String,
     default: "",
-    minlength: 1,
     trim: true
   } 
 });
 
-module.exports = {Jugador};
+mongoose.model('jugadores', JugadorSchema, 'jugadores');

@@ -16,7 +16,7 @@ var Equipo = mongoose.model('Equipo', {
     type: String,
     minlength: 1,
     trim: true,
-	default: ""
+	default: "http://www.nextcorporate.com/wp-content/uploads/2015/10/icono-equipo.png"
   },
   completo:{
     type: Boolean,
@@ -24,20 +24,17 @@ var Equipo = mongoose.model('Equipo', {
   },
   locacion:{
     type: String,
-    default: "",
-    minlength: 1,
+    default: "La Victoria",
     trim: true
   },
   administradores:{
     type: String,
     default: "",
-    minlength: 1,
     trim: true
   },
   jugadores:{
     type: String,
     default: "",
-    minlength: 1,
     trim: true
   }  
 });
