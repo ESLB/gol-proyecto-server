@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
   });
 
   todo.save().then((doc) => {
-      var id = res.body._id;
+      var id = _.pick(doc, ['_id']);
 
       Todo.findById(id).then((todo2) => {
         res.send({todo2});
