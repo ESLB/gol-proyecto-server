@@ -36,7 +36,14 @@ router.post('/', (req, res) => {
   });
 
   todo.save().then((doc) => {
-    res.send(doc);
+      var id = res.body._id,
+
+      Todo.findById(id).then((todo2) => {
+        res.send({todo2});
+      });
+
+    //res.send(doc);
+
   }, (e) => {
     res.status(400).send(e);
   });
@@ -65,7 +72,7 @@ router.patch('/:id', (req, res) => {
     Todo.findById(id).then((todo2) => {
       res.send({todo2});
     });
-    
+
 
     res.send({todo});
   }).catch((e) => {
