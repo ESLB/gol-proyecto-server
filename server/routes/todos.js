@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
     if (!todo) {
       return res.status(404).send();
     }
-    res.send({todo});
+    res.send(todo);
   }).catch((e) => {
     res.status(400).send();
   });
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
       var id = _.pick(doc, ['_id']);
 
       Todo.findById(id).then((todo) => {
-        res.send({todo});
+        res.send(todo);
       });
 
     //res.send(doc);
@@ -69,12 +69,12 @@ router.patch('/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    Todo.findById(id).then((todo2) => {
-      res.send({todo2});
+    Todo.findById(id).then((todo) => {
+      res.send(todo);
     });
 
 
-    res.send({todo});
+    //res.send(todo);
   }).catch((e) => {
     res.status(400).send();
   })
@@ -92,7 +92,7 @@ router.delete('/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({todo});
+    res.send(todo);
   }).catch((e) => {
     res.status(400).send();
   });
