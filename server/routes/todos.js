@@ -62,7 +62,11 @@ router.patch('/:id', (req, res) => {
       return res.status(404).send();
     }
 
-    res.send({todo});
+    Todo.findById(id).then((todo2) => {
+      res.send({todo2});
+    }
+
+    //res.send({todo});
   }).catch((e) => {
     res.status(400).send();
   })
