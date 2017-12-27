@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 router.get('/', (req, res) =>{
     Equipo.find().then((equipos)=>{
-        res.send({equipos});
+        res.send(equipos);
     }, (e) => {
         res.status(400).send(e);
     });
@@ -24,12 +24,11 @@ router.get('/:id', (req, res) => {
         if(!equipo){
             return res.status(404).send();
         }
-        res.send({equipo});
+        res.send(equipo);
     }).catch((e)=>{
         res.status(400).send()
     });
 });
-
 
 router.post('/', (req, res)=> {
     var equipo = new Equipo({
@@ -38,31 +37,40 @@ router.post('/', (req, res)=> {
     });
 
     equipo.save().then((doc)=>{
-        res.send(doc);
+
+        var id = _.pick(doc, ['_id']);
+
+        Equipo.findById(id).then((equipo) => {
+          res.send(equipo);
+        });
+
+        //res.send(doc);
     }, (e) => {
         res.status(400).send(e);
     });
 });
-
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['nombre', 'numero']);
 
     if (!ObjectID.isValid(id)) {
-      return res.status(404).send("1");
+      return res.status(404).send();
     }
 
     Equipo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((equipo) => {
         if(!equipo) {
-            return res.status(404).send("2");
+            return res.status(404).send();
         }
-        res.send({equipo});
+
+        Equipo.findById(id).then((equipo) => {
+          res.send(equipo);
+        });
+        //res.send(equipo);
     }).catch((e) => {
-        res.status(400).send("3");
+        res.status(400).send();
     })
 });
-
 
 router.delete('/:id', (req, res) => {
     var id = req.params.id;
@@ -76,7 +84,7 @@ router.delete('/:id', (req, res) => {
             return res.status(404).send();
         }
 
-        res.send({equipo});
+        res.send(equipo);
     }).catch((e) => {
         res.status(400).send();
     });

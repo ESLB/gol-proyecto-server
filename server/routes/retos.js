@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 router.get('/', (req, res) =>{
     Reto.find().then((retos)=>{
-        res.send({retos});
+        res.send(retos);
     }, (e) => {
         res.status(400).send(e);
     });
@@ -24,12 +24,11 @@ router.get('/:id', (req, res) => {
         if(!reto){
             return res.status(404).send();
         }
-        res.send({reto});
+        res.send(reto);
     }).catch((e)=>{
         res.status(400).send()
     });
 });
-
 
 router.post('/', (req, res)=> {
     var reto = new Reto({
@@ -39,12 +38,18 @@ router.post('/', (req, res)=> {
     });
 
     reto.save().then((doc)=>{
-        res.send(doc);
+
+        var id = _.pick(doc, ['_id']);
+
+        Reto.findById(id).then((reto) => {
+          res.send(reto);
+        });
+
+        //res.send(doc);
     }, (e) => {
         res.status(400).send(e);
     });
 });
-
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
@@ -58,12 +63,16 @@ router.patch('/:id', (req, res) => {
         if(!reto) {
             return res.status(404).send("2");
         }
-        res.send({reto});
+
+
+        Reto.findById(id).then((reto) => {
+          res.send(reto);
+        });
+        //res.send(reto);
     }).catch((e) => {
         res.status(400).send("3");
     })
 });
-
 
 router.delete('/:id', (req, res) => {
     var id = req.params.id;
@@ -77,11 +86,10 @@ router.delete('/:id', (req, res) => {
             return res.status(404).send();
         }
 
-        res.send({reto});
+        res.send(reto);
     }).catch((e) => {
         res.status(400).send();
     });
 });
-
 
 module.exports = router;

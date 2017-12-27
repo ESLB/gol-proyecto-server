@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 router.get('/', (req, res) =>{
     Solicitud.find().then((solicitudes)=>{
-        res.send({solicitudes});
+        res.send(solicitudes);
     }, (e) => {
         res.status(400).send(e);
     });
@@ -24,12 +24,11 @@ router.get('/:id', (req, res) => {
         if(!solicitud){
             return res.status(404).send();
         }
-        res.send({solicitud});
+        res.send(solicitud);
     }).catch((e)=>{
         res.status(400).send()
     });
 });
-
 
 router.post('/', (req, res)=> {
     var solicitud = new Solicitud({
@@ -38,31 +37,40 @@ router.post('/', (req, res)=> {
     });
 
     solicitud.save().then((doc)=>{
-        res.send(doc);
+        var id = _.pick(doc, ['_id']);
+
+        Solicitud.findById(id).then((solicitud) => {
+          res.send(solicitud);
+        });
+
+        //res.send(doc);
     }, (e) => {
         res.status(400).send(e);
     });
 });
-
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['jugador', 'equipoSolicitado']);
 
     if (!ObjectID.isValid(id)) {
-      return res.status(404).send("1");
+      return res.status(404).send();
     }
 
     Solicitud.findByIdAndUpdate(id, {$set: body}, {new: true}).then((solicitud) => {
         if(!solicitud) {
-            return res.status(404).send("2");
+            return res.status(404).send();
         }
-        res.send({solicitud});
+
+        Solicitud.findById(id).then((solicitud) => {
+          res.send(solicitud);
+        });
+
+        //res.send(solicitud);
     }).catch((e) => {
-        res.status(400).send("3");
+        res.status(400).send();
     })
 });
-
 
 router.delete('/:id', (req, res) => {
     var id = req.params.id;
@@ -76,11 +84,10 @@ router.delete('/:id', (req, res) => {
             return res.status(404).send();
         }
 
-        res.send({solicitud});
+        res.send(solicitud);
     }).catch((e) => {
         res.status(400).send();
     });
 });
-
 
 module.exports = router;

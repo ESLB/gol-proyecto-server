@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 router.get('/', (req, res) =>{
     Jugador.find().then((jugadores)=>{
-        res.send({jugadores});
+        res.send(jugadores);
     }, (e) => {
         res.status(400).send(e);
     });
@@ -15,16 +15,16 @@ router.get('/', (req, res) =>{
 
 router.get('/:id', (req, res) => {
     var id = req.params.id;
-    
+
     if(!ObjectID.isValid(id)){
         return res.status(404).send();
     }
-    
+
     Jugador.findById(id).then((jugador)=>{
         if(!jugador){
             return res.status(404).send();
         }
-        res.send({jugador});
+        res.send(jugador);
     }).catch((e)=>{
         res.status(400).send()
     });
@@ -39,9 +39,16 @@ router.post('/', (req, res)=> {
         ubicacion: req.body.ubicacion,
         telephone: req.body.telephone
     });
-    
+
     jugador.save().then((doc)=>{
-        res.send(doc);
+
+        var id = _.pick(doc, ['_id']);
+
+        Jugador.findById(id).then((jugador) => {
+          res.send(jugador);
+        });
+
+        //res.send(doc);
     }, (e) => {
         res.status(400).send(e);
     });
@@ -50,16 +57,21 @@ router.post('/', (req, res)=> {
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['nombre', 'edad']);
-    
+
     if (!ObjectID.isValid(id)) {
       return res.status(404).send("1");
     }
-    
+
     Jugador.findByIdAndUpdate(id, {$set: body}, {new: true}).then((jugador) => {
         if(!jugador) {
             return res.status(404).send("2");
         }
-        res.send({jugador});
+
+        Jugador.findById(id).then((jugador) => {
+          res.send(jugador);
+        });
+
+        //res.send(jugador);
     }).catch((e) => {
         res.status(400).send("3");
     })
@@ -67,17 +79,17 @@ router.patch('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     var id = req.params.id;
-    
+
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
-    
+
     Jugador.findByIdAndRemove(id).then((jugador)=> {
         if(!jugador) {
             return res.status(404).send();
         }
-        
-        res.send({jugador});
+
+        res.send(jugador);
     }).catch((e) => {
         res.status(400).send();
     });
