@@ -51,7 +51,7 @@ router.post('/', (req, res)=> {
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['jugador', 'equipoSolicitado']);
+    var body = _.pick(req.body, ['estadoSolicitud']);
 
     if (!ObjectID.isValid(id)) {
       return res.status(404).send();

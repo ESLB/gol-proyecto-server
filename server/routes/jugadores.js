@@ -56,7 +56,7 @@ router.post('/', (req, res)=> {
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['nombre', 'edad']);
+    var body = _.pick(req.body, ['nombre', 'edad', 'telephone','ubicacion','email','password','solicitudes','retos','teams','perfilImagen']);
 
     if (!ObjectID.isValid(id)) {
       return res.status(404).send("1");

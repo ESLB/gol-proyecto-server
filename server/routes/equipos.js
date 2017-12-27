@@ -33,7 +33,9 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res)=> {
     var equipo = new Equipo({
         nombre: req.body.nombre,
-        numero: req.body.numero
+        numero: req.body.numero,
+        locacion: req.body.locacion,
+        administradores: req.body.administradores
     });
 
     equipo.save().then((doc)=>{
@@ -52,7 +54,7 @@ router.post('/', (req, res)=> {
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['nombre', 'numero']);
+    var body = _.pick(req.body, ['nombre', 'numero','jugadores','administradores','locacion','completo','equipoImagen']);
 
     if (!ObjectID.isValid(id)) {
       return res.status(404).send();

@@ -53,7 +53,7 @@ router.post('/', (req, res)=> {
 
 router.patch('/:id', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['equipoRetador', 'equipoRetado','locacion']);
+    var body = _.pick(req.body, ['estadoReto']);
 
     if (!ObjectID.isValid(id)) {
       return res.status(404).send("1");
