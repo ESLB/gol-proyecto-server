@@ -37,7 +37,8 @@ router.post('/', (req, res)=> {
         email: req.body.email,
         password: req.body.password,
         ubicacion: req.body.ubicacion,
-        telephone: req.body.telephone
+        telephone: req.body.telephone,
+        perfilImagen: req.body.perfilImagen
     });
 
     jugador.save().then((doc)=>{
