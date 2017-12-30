@@ -12,7 +12,16 @@ router.post('/', (req, res)=> {
     Jugador.findOne({email : body.email, password: body.password}).then((doc)=>{
         if(!doc)
         {
-            return res.status(404).send();
+            Jugador.findOne({telephone: body.telephone, password: body.password}).then((doc)=>{
+                if(!doc)
+                {
+                    return res.status(404).send();
+                } else {
+                    res.send(doc);
+                }
+
+            });
+
         }else {
             res.send(doc);
         }
