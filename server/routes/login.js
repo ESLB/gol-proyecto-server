@@ -9,8 +9,9 @@ router.post('/', (req, res)=> {
 
     var body = _.pick(req.body, ['email','telephone','password']);
 
-    res.send(body);
-    //Jugador.findOne({email : body.email, password: body.password}))
+    Jugador.find({email : body.email, password: body.password}).toArray().then((doc)=>{
+        res.send(doc);
+    });
 
 });
 
