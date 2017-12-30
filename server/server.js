@@ -16,7 +16,7 @@ const jugadores = require('./routes/jugadores');
 const equipos = require('./routes/equipos');
 const retos = require('./routes/retos');
 const solicitudes = require('./routes/solicitudes');
-const solicitudes = require('./routes/login');
+const login = require('./routes/login');
 
 var app = express();
 app.use(bodyParser.json());
