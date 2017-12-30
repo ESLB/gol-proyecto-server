@@ -7,12 +7,22 @@ const _ = require('lodash');
 
 router.post('/', (req, res)=> {
 
+    var jugadorVacio = new Jugador({
+        nombre: "Vacio",
+        edad: "Vacio",
+        email: "Vacio",
+        password: "Vacio",
+        ubicacion: "Vacio",
+        telephone: "Vacio",
+        perfilImagen: "Vacio"
+    });
+
     var body = _.pick(req.body, ['email','telephone','password']);
 
     Jugador.findOne({email : body.email, password: body.password}).then((doc)=>{
         if(!doc)
         {
-            res.send("No hallamos nada");
+            res.send(jugadorVacio);
         }else {
             res.send(doc);
         }
