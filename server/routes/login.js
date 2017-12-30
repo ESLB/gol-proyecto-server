@@ -10,7 +10,13 @@ router.post('/', (req, res)=> {
     var body = _.pick(req.body, ['email','telephone','password']);
 
     Jugador.findOne({email : body.email, password: body.password}).then((doc)=>{
-        res.send(doc.length);
+        if(!doc)
+        {
+            res.send("No hallamos nada");
+        }else {
+            res.send(doc);
+        }
+
     });
 
 });
