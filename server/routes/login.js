@@ -9,7 +9,7 @@ router.post('/', (req, res)=> {
 
     var body = _.pick(req.body, ['email','telephone','password']);
 
-    Jugador.find({email : body.email, password: body.password}).toArray().then((doc)=>{
+    Jugador.findOne({email : body.email, password: body.password}).then((doc)=>{
         res.send(doc);
     });
 
