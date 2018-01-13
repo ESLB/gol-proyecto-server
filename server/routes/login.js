@@ -30,4 +30,27 @@ router.post('/', (req, res)=> {
 
 });
 
+router.get('/variosjugadores/:ids', (req, res)=>{
+
+    var ids = req.params.ids;
+
+    var jugadores = ids.split(",");
+    Jugador.find({'nombre': {$in:jugadores}}).then((doc)=>{
+        res.send(doc);
+    });
+    //res.send(resultado);
+});
+
+router.get('/varios/:ids', (req, res)=>{
+
+    var ids = req.params.ids;
+
+    var jugadores = ids.split(",");
+    Jugador.find({'_id': {$in:jugadores}}).then((doc)=>{
+        res.send(doc);
+    });
+    //res.send(resultado);
+});
+//5a40712143552020b492a5d0,5a593d7b3879140e5477b025
+
 module.exports = router;
