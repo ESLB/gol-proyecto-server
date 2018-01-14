@@ -30,6 +30,15 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.get('/public/:ids', (req, res)=>{
+  var ids = req.params.ids;
+  var jugadoresIds = ids.split(",");
+  Jugador.find({'_id':{$in:jugadoresIds}},{"nombre": 1, "edad": 1, "perfilImagen":1}).then((doc)=>{
+    res.send(doc);
+  });
+});
+
+
 router.post('/', (req, res)=> {
     var jugador = new Jugador({
         nombre: req.body.nombre,

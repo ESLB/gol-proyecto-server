@@ -30,6 +30,22 @@ router.get('/:id', (req, res) => {
     });
 });
 
+router.get('/public/:ids', (req, res)=>{
+  var ids = req.params.ids;
+  var equiposIds = ids.split(",");
+  Equipo.find({'_id':{$in:equiposIds}},{
+    "nombre": 1, "numero": 1, "equipoImagen":1,
+    "locacion":1, "administradores":1, "jugadores":1,
+    "completo": 1
+  }).then((doc)=>{
+    res.send(doc);
+  });
+});
+
+
+
+
+
 router.post('/', (req, res)=> {
     var equipo = new Equipo({
         nombre: req.body.nombre,
